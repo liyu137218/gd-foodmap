@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>河南美食地图</title>
+    <!-- zui -->
+    <script src="./js/rem.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/zui/1.9.1/css/zui.min.css">
+    <link rel="stylesheet" href="./css/food.css">
+    <!-- ZUI Javascript 依赖 jQuery -->
+    <script src="http://cdn.bootcss.com/zui/1.9.1/lib/jquery/jquery.js"></script>
+    <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/zui/1.9.1/js/zui.min.js"></script>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.2.2/vconsole.min.js"></script> -->
+    <script>
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function () {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    <style>
+        #source {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="cont page">
+        <div class="lefticon">
+            <i class="icon icon-long-arrow-left"></i>
+        </div>
+        <div class="righticon">
+            <i class="icon icon-long-arrow-right"></i>
+        </div>
+        <div class="imgdiv">
+            <img class="foodimg" src="./img/foodlist.jpg" alt="">
+            <div class="input-group">
+                <div class="input-control search-box search-box-circle has-icon-left has-icon-right search-example"
+                    id="searchboxExample">
+                    <input id="inputSearchExample3" type="search" class="form-control search-input"
+                        placeholder="请输入数字编码">
+                    <label for="inputSearchExample3" class="input-control-icon-left search-icon"><i
+                            class="icon icon-search"></i></label>
+                </div>
+                <span class="input-group-btn">
+                    <button class="searchbtn btn btn-primary" type="button">搜索</button>
+                </span>
+            </div>
+            <div class="tip">
+                <span class="spantip"><i class="icon icon-hand-down handimg"></i> 点击地区查看美食信息</span>
+            </div>
+            <div data-loading="正在加载..." class="modal fade load-indicator loading" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="closebtn" style="float: right;"><svg t="1577780264378" class="icon"
+                                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3530"
+                                    width="16" height="16">
+                                    <path
+                                        d="M583.168 523.776L958.464 148.48c18.944-18.944 18.944-50.176 0-69.12l-2.048-2.048c-18.944-18.944-50.176-18.944-69.12 0L512 453.12 136.704 77.312c-18.944-18.944-50.176-18.944-69.12 0l-2.048 2.048c-19.456 18.944-19.456 50.176 0 69.12l375.296 375.296L65.536 899.072c-18.944 18.944-18.944 50.176 0 69.12l2.048 2.048c18.944 18.944 50.176 18.944 69.12 0L512 594.944 887.296 970.24c18.944 18.944 50.176 18.944 69.12 0l2.048-2.048c18.944-18.944 18.944-50.176 0-69.12L583.168 523.776z"
+                                        p-id="3531"></path>
+                                </svg></span>
+                            <h4 style="width:80%" id="source" class="modal-title"></h4>
+                            <h4 style="width:80%" id="output" class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
+
+        var TITLE = '河南美食地图'
+        var LINK = 'http://www.hndt.com/nh5/jiaoyu/20190921/foodscoll.html?'
+        var IMGURL = 'http://www.hndt.com/nh5/jiaoyu/20190921/img/sharemin.jpg'
+        var DESC = '河南广播电视台大象新闻客户端与香香美食联合出品'
+        let adlist, findKey, foodslist
+        const baseurl = 'https://dxshop.dianzhenkeji.com/api/dxcode.php'
+
+
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+        let ad_id = getQueryVariable('ad_id')
+        let ad = decodeURI(getQueryVariable('ad'))
+        console.log(ad);
+
+        $.ajax({
+            type: "post",
+            url: baseurl,
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            data: {
+                action: 'cate',
+                catid: ad_id
+            },
+            dataType: "json",
+            success: function (res) {
+                if (res.code == 0) {
+                    var popupHTML1 = '',
+                        foodslist = ''
+                    foodslist = res.data
+                    foodslist.forEach((element, index) => {
+                        popupHTML1 += `<div data_linkurl='${element.linkurl}' data_xcode='${element.xcode}' class="items items-hover">
+        <div class="item">
+            <div class="item-content">
+                <div style="border: 1px solid #b6b6b6;" class="media pull-left"><img class="lazy img-thumbnail"
+                        data-original="./img/${element.xcode}.jpg" src="./img/sharemin1.jpg"
+                        alt=""></div>
+                <div style="font-weight: 800;" class="text titlediv">${element.title}</div>
+                <div class="text dev">${element.introduce}</div>
+            </div>
+        </div>
+    </div>`
+                    });
+                    $('.modal-body').html(popupHTML1)
+                    $("img.lazy").lazyload();
+                    $('#myModal').removeClass('loading')
+                    $('#source').html(ad + '地区美食列表(' + foodslist.length + '个)')
+
+                    let source = document.getElementById('source')
+                    let output = document.getElementById('output')
+                    let typing = new Typing({
+                        source,
+                        output
+                    })
+                    typing.start()
+
+
+                    $('#myModal').modal('show', 'fit')
+                } else {}
+            },
+            error: function (e) {}
+        });
+        window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        //微信分享配置
+        $.ajax({
+            type: "post",
+            url: 'https://a.weixin.hndt.com/boom/at/sign',
+            data: {
+                'url': window.location.href.split('#')[0]
+            },
+            success: function (res) {
+                console.log(res);
+                let data = res
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: data.appId, // 必填，公众号的唯一标识
+                    timestamp: data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                    signature: data.signature, // 必填，签名，见附录1
+                    jsApiList: ['onMenuShareTimeline',
+                        'onMenuShareAppMessage'
+                    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+                wx.ready(function () {
+                    wx.onMenuShareTimeline({
+                        title: TITLE, // 分享标题
+                        link: LINK, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: IMGURL, // 分享图标
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                    wx.onMenuShareAppMessage({
+                        title: TITLE, // 分享标题
+                        desc: DESC, // 分享描述
+                        link: LINK, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: IMGURL, // 分享图标
+                        type: '', // 分享类型,music、video或link，不填默认为link
+                        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                })
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+
+        $(document).on('click', '.closebtn', function (e) {
+            e.stopPropagation()
+            // window.location.href = 'http://127.0.0.1:5500/food_maph5/foodscoll1.html'
+            window.location.href = 'http://www.hndt.com/nh5/jiaoyu/20190921/foodscoll1.html'
+
+        })
+        // 点击文章列表跳转到详情
+        $(document).on('click', '.items', function (e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            var data_linkurl = $(this).attr('data_linkurl')
+            var data_xcode = $(this).attr('data_xcode')
+            // return
+            $.ajax({
+                type: "post",
+                url: baseurl,
+                contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                data: {
+                    action: 'link',
+                    xcode: data_xcode
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 0) {
+                        window.location.href = data.data
+                    } else {}
+                },
+                error: function (e) {}
+            })
+        })
+        //隐藏弹窗修正zui
+        $(document).on('click', '#myModal', function (e) {
+            console.log(e.target);
+            window.location.href = 'http://www.hndt.com/nh5/jiaoyu/20190921/foodscoll1.html'
+            // window.location.href = 'http://127.0.0.1:5500/food_maph5/foodscoll1.html'
+
+        })
+
+
+    })
+
+    class Typing {
+        constructor(opts) {
+            this.opts = opts || {};
+            this.source = opts.source;
+            this.output = opts.output;
+            this.delay = opts.delay || 220;
+            this.chain = {
+                parent: null,
+                dom: this.output,
+                val: []
+            };
+            if (!(typeof this.opts.done === 'function')) this.opts.done = function () {};
+        }
+
+        init() {
+            //初始化函数
+            this.chain.val = this.convert(this.source, this.chain.val);
+        }
+
+        convert(dom, arr) {
+            //将dom节点的子节点转换成数组，
+            let children = Array.from(dom.childNodes)
+            for (let i = 0; i < children.length; i++) {
+                let node = children[i]
+                if (node.nodeType === 3) {
+                    arr = arr.concat(node.nodeValue.split('')) //将字符串转换成字符串数组，后面打印时才会一个一个的打印
+                } else if (node.nodeType === 1) {
+                    let val = []
+                    val = this.convert(node, val)
+                    arr.push({
+                        'dom': node,
+                        'val': val
+                    })
+                }
+            }
+            return arr
+        }
+
+        print(dom, val, callback) {
+            setTimeout(function () {
+                dom.appendChild(document.createTextNode(val));
+                callback();
+            }, this.delay);
+        }
+
+        play(ele) {
+            //当打印最后一个字符时，动画完毕，执行done
+            if (!ele.val.length) {
+                if (ele.parent) this.play(ele.parent);
+                else this.opts.done();
+                return;
+            }
+            let current = ele.val.shift() //获取第一个元素，同时删除数组中的第一个元素
+            if (typeof current === 'string') {
+                this.print(ele.dom, current, () => {
+                    this.play(ele); //继续打印下一个字符
+                })
+            } else {
+                let dom = current.dom.cloneNode() //克隆节点，不克隆节点的子节点，所以不用加参数true
+                ele.dom.appendChild(dom)
+                this.play({
+                    parent: ele,
+                    dom,
+                    val: current.val
+                })
+            }
+        }
+
+        start() {
+            this.init();
+            this.play(this.chain);
+        }
+    }
+</script>
+
+</html>

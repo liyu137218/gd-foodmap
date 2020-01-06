@@ -1,0 +1,458 @@
+   .modal-header .close {
+       transform: scale(2);
+   }
+
+   .input-group .form-control:first-child {
+       overflow: hidden;
+       border-top-right-radius: 0 !important;
+       border-bottom-right-radius: 0 !important;
+   }
+
+   .input-group .search-input {
+       border-top-right-radius: 0 !important;
+       border-bottom-right-radius: 0 !important;
+   }
+
+   body {
+       margin: 0px;
+       overflow-y: hidden;
+   }
+
+   .popup-overlay {
+       z-index: 0;
+   }
+
+   .cont {
+
+       overflow-x: scroll;
+       width: 100%;
+   }
+
+   .imgdiv {
+       position: relative;
+       width: -webkit-min-content;
+       width: -moz-min-content;
+       width: min-content;
+   }
+
+   img {
+       max-height: 100vh;
+       max-width: none;
+   }
+
+   .ad {
+       position: absolute;
+       width: 6vh;
+       height: 3vh;
+
+       overflow: hidden;
+       opacity: 0.4;
+       color: #40a04d;
+   }
+
+   .open-about {
+       position: absolute;
+       opacity: 0;
+       /* color: white; */
+       /* background: rgb(111, 0, 255); */
+       text-align: center;
+   }
+
+   .dev {
+       display: -webkit-box;
+       -webkit-box-orient: vertical;
+       -webkit-line-clamp: 2;
+       overflow: hidden;
+   }
+
+   .smxs {
+       left: 17vh;
+       top: 50vh;
+   }
+
+   .smxsdiv {
+       width: 8.5vh;
+       height: 17vh;
+       left: 24vh;
+       top: 47vh;
+       border-bottom-left-radius: 100%;
+   }
+
+   .xinys {
+       left: 45vh;
+       top: 90vh;
+   }
+
+   .xinysdiv {
+       width: 28.5vh;
+       height: 12vh;
+       left: 70vh;
+       top: 82vh;
+       border-radius: 1% 1% 24% 40%;
+   }
+
+   .luoys {
+       left: 19.5vh;
+       top: 61vh;
+   }
+
+   .luoysdiv {
+       width: 16.5vh;
+       height: 20vh;
+       left: 34vh;
+       top: 45vh;
+       /* border-bottom-left-radius: 10%; */
+       /* border-bottom-right-radius: 27%; */
+       /* border-top-left-radius: 66%; */
+       border-radius: 100% 27% 43% 49%;
+   }
+
+   .nanys {
+       left: 29.5vh;
+       top: 77vh;
+   }
+
+   .nanysdiv {
+       width: 40.5vh;
+       height: 10vh;
+       left: 31vh;
+       top: 71.5vh;
+       -webkit-transform: rotate(-26deg);
+       transform: rotate(20deg);
+       border-top-right-radius: 98%;
+       border-bottom-left-radius: 53%;
+   }
+
+   .zhengzs {
+       left: 20.5vh;
+       top: 74vh;
+   }
+
+   .zhengzsdiv {
+       width: 27.5vh;
+       height: 12vh;
+       left: 48vh;
+       top: 42.5vh;
+       border-radius: 42% 51% 25% 20%;
+       -webkit-transform-origin-y: top;
+       transform: rotate(7deg);
+       -ms-transform: rotate(7deg);
+       -moz-transform: rotate(7deg);
+       -webkit-transform: rotate(-26deg);
+       -o-transform: rotate(7deg);
+   }
+
+   .jiys {
+       left: 33.5vh;
+       top: 38vh;
+   }
+
+   .jiysdiv {
+       width: 8.5vh;
+       height: 8vh;
+       left: 44vh;
+       top: 36vh;
+       border-bottom-left-radius: 67%;
+       border-top-right-radius: 21%;
+   }
+
+   .jiaozs {
+       left: 46.5vh;
+       top: 29vh;
+   }
+
+   .jiaozsdiv {
+       width: 9.5vh;
+       height: 10vh;
+       left: 53vh;
+       top: 29vh;
+   }
+
+   .hbs {
+       left: 57vh;
+       top: 22vh;
+   }
+
+   .titlediv {
+       font-weight: 800;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+   }
+
+   .hbsdiv {
+       width: 6.5vh;
+       height: 4vh;
+       left: 70vh;
+       top: 28vh;
+       border-bottom-left-radius: 68%;
+       /* background: #fb0505; */
+       border-bottom-right-radius: 97%;
+       z-index: 10;
+       opacity: 0;
+   }
+
+   .anys {
+       left: 101.5vh;
+       top: 21vh;
+   }
+
+   .anysdiv {
+       width: 16.5vh;
+       height: 11vh;
+       left: 65vh;
+       top: 20vh;
+       border-bottom-left-radius: 68%;
+   }
+
+   .puys {
+       right: 30.5vh;
+       top: 28vh;
+   }
+
+   .puysdiv {
+       width: 13vh;
+       height: 11vh;
+       left: 82.5vh;
+       top: 21vh;
+       border-bottom-right-radius: 100%;
+       border-bottom-left-radius: 28%;
+   }
+
+   .kaifs {
+       right: 32.5vh;
+       top: 39vh;
+   }
+
+   .kaifsdiv {
+       width: 9.5vh;
+       height: 20vh;
+       left: 80vh;
+       top: 36vh;
+       transform: rotate(26deg);
+       border-bottom-right-radius: 17%;
+       border-top-left-radius: 76%;
+   }
+
+   .xucs {
+       right: 26.5vh;
+       top: 62vh;
+   }
+
+   .xucsdiv {
+       width: 15.5vh;
+       height: 7vh;
+       left: 65vh;
+       top: 54vh;
+       /* border-bottom-left-radius: 67%; */
+       border-radius: 123% 149% 100% 1%;
+   }
+
+   .luohs {
+       right: 36.5vh;
+       top: 72vh;
+   }
+
+   .luohsdiv {
+       width: 11.5vh;
+       height: 6vh;
+       left: 68vh;
+       top: 62vh;
+       /* border-bottom-left-radius: 67%; */
+       border-radius: 123% 149% 100% 1%;
+   }
+
+   .zhouks {
+       right: 31.5vh;
+       top: 66vh;
+   }
+
+   .zhouksdiv {
+       width: 15.5vh;
+       height: 16vh;
+       left: 81vh;
+       top: 58vh;
+       border-bottom-left-radius: 31%;
+       border-top-right-radius: 30%;
+       border-radius: 40% 56% 44% 43%;
+   }
+
+   .zhumds {
+       right: 42.5vh;
+       top: 76vh;
+   }
+
+   .zhumdsdiv {
+       width: 23.5vh;
+       height: 10vh;
+       left: 61vh;
+       top: 70vh;
+       /* border-bottom-left-radius: 31%; */
+       /* border-top-right-radius: 30%; */
+       border-radius: 40% 56% 33% 43%;
+   }
+
+   .pingdss {
+       right: 74.5vh;
+       top: 87vh;
+   }
+
+   .pingdssdiv {
+       width: 16.5vh;
+       height: 10vh;
+       left: 50vh;
+       top: 61vh;
+       /* border-bottom-left-radius: 31%; */
+       /* border-top-right-radius: 30%; */
+       border-radius: 40% 56% 33% 58%;
+   }
+
+   .xxs {
+       right: 38.5vh;
+       top: 31vh;
+   }
+
+   .xxsdiv {
+       width: 25.5vh;
+       height: 6vh;
+       left: 64vh;
+       top: 33vh;
+       border-bottom-left-radius: 23%;
+       border-top-right-radius: 45%;
+       border-bottom-right-radius: 63%;
+   }
+
+
+   .shangqs {
+       right: 24vh;
+       top: 50vh;
+   }
+
+   .shangqsdiv {
+       width: 21.5vh;
+       height: 10vh;
+       left: 92vh;
+       top: 46vh;
+       border-bottom-left-radius: 63%;
+       border-bottom-right-radius: 46%;
+       transform: rotate(24deg);
+       transform-origin: left top;
+   }
+
+   .spantip {
+       position: relative;
+   }
+
+   .searchbar {
+       position: absolute;
+       margin: 0 auto;
+   }
+
+   @keyframes handmove {
+       0% {
+           top: -3px;
+       }
+
+       100% {
+           top: 3px;
+       }
+   }
+
+   .handimg {
+       color: #cc3a01;
+       font-size: 18px;
+       animation: handmove 1.5s infinite;
+       position: absolute;
+       top: 0px;
+       left: -20px;
+
+   }
+
+
+
+   .tip {
+       width: 14rem;
+       position: fixed;
+       opacity: 0.8;
+       left: 50%;
+       margin-left: -7rem;
+       top: 6vh;
+       text-align: center;
+       font-weight: 600;
+       color: #c0720b;
+       font-size: 14px;
+   }
+
+   .tip1 {
+       top: 8.5vh;
+   }
+
+   .tipimg {
+       margin: 10px auto;
+       display: block;
+   }
+
+   /* 搜索 */
+   .input-group {
+       width: 14rem;
+       position: fixed;
+       opacity: 0.8;
+       left: 50%;
+       margin-left: -7rem;
+       top: 0px;
+   }
+
+   /* 滑动提示箭头 */
+   .lefticon,
+   .righticon {
+       position: absolute;
+       top: 84%;
+       font-size: 26px;
+       animation: govtit 2s infinite;
+       z-index: 20;
+       color: white;
+   }
+
+   .lefticon {
+       animation: govtit1 2s infinite;
+   }
+
+   .lefticon i,
+   .righticon i {
+       width: 4rem;
+       font-size: 30px;
+
+   }
+
+   .media img {
+       width: 15vh;
+       height: 9vh;
+   }
+
+   @keyframes govtit1 {
+       0% {
+           left: 10%;
+           opacity: 0.1;
+       }
+
+       100% {
+           left: 1%;
+           opacity: 1;
+       }
+
+
+   }
+
+   @keyframes govtit {
+       0% {
+           right: 10%;
+           opacity: 0.1;
+       }
+
+       100% {
+           right: 1%;
+           opacity: 1;
+       }
+
+
+   }
